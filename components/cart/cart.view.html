@@ -1,0 +1,29 @@
+<div class="dropdown margin-b-12" ng-controller='CartController'>
+  <div class="dropdown-toggle btn btn-blue text-center spacing" data-toggle="dropdown" href="#">
+    <span>{{ ngCart.getTotalItems() }}
+      <ng-pluralize count="ngCart.getTotalItems()" when="{1: 'item', 'other':'items'}"></ng-pluralize>
+      {{ ngCart.totalCost() | currency }}
+    </span>
+    <i class="glyphicon glyphicon-shopping-cart pull-right"></i>
+  </div>
+  <div class="dropdown-menu" style="width: 256px;padding: 0;margin: 0;" role="menu">
+    <div class="shopping-cart">
+      <div class="shopping-cart-header">
+        <i class="glyphicon glyphicon-shopping-cart light-blue"></i><span class="badge">{{ ngCart.getTotalItems() }}</span>
+        <div class="shopping-cart-total">
+          <span class="lighter-text">Total:</span>
+          <span class="main-color-text">{{ ngCart.totalCost() | currency }}</span>
+        </div>
+      </div>
+      <ul class="shopping-cart-items">
+        <li class="clearfix" ng-repeat="item in items">
+          <img ng-src="assets/img/{{item._name}}.jpg" style="width:70px;" />
+          <span class="item-name">{{item._name}}</span>
+          <span class="item-price">{{item._price | currency }}</span>
+          <span class="item-quantity">Quantity: {{item._quantity}}</span>
+        </li>
+      </ul>
+      <a ng-href="#/cartDetails" class="btn-blue btn btn-block">Shopping Cart</a>
+    </div> <!--end shopping-cart -->
+  </div>
+</div>

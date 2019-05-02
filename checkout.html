@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zazu Homepage</title>
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/intlTelInput.css" rel="stylesheet" >
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body ng-app="zazuApp">
+  <div ng-controller="ProduceCtrl">
+    <div class="container">
+      <nav class="navbar">
+        <div class="container-fluid">
+          <div class="navbar-header text-center">
+            <img src="assets/img/logo.png" alt="Zazu logo" height="75" width="225">
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active">
+                <a href="index.html">Home</a>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="register.html">Join Today</a> </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="http://zazuafrica.com">Company</a> </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="col-sm-4 col-md-3 sidebar">
+        <div class="dropdown margin-b-12"  ng-controller='CartController'>
+          <div class="dropdown-toggle btn btn-blue text-center spacing" data-toggle="dropdown" href="#">
+            <span>{{ ngCart.getTotalItems() }}
+              <ng-pluralize count="ngCart.getTotalItems()" when="{1: 'item', 'other':'items'}"></ng-pluralize>
+              {{ ngCart.totalCost() | currency }}
+            </span>
+            <i class="glyphicon glyphicon-shopping-cart pull-right"></i>
+          </div>
+          <div class="dropdown-menu well" style="width: 220px;" role="menu" aria-labelledby="dLabel" ng-controller='CartController'>
+            <div ng-repeat="item in items | orderBy:'name'">
+              <p>{{item._name}} x {{item._quantity}} <span class="pull-right">{{item._price}}</span></p>
+            </div>
+            <a href="cart.html" class="btn btn-blue">Go To Cart</a>
+          </div>
+        </div>
+        <div class="panel panel-default margin-b-12 spacing">
+          <ul>
+            <li class="dropdown" style="list-style-type: none;">
+              <div href="#" class="dropdown-toggle text-center" data-toggle="dropdown">
+                <span>My Account</span>
+                <span class="glyphicon glyphicon-chevron-down pull-right"></span>
+              </div>
+              <ul class="dropdown-menu" style="min-width: 255px;">
+                <li><a href="#">Account Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
+                <li class="divider"></li>
+                <li><a href="#">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="mini-submenu">
+          <span class="panel panel-default margin-b-12 spacing menu-head">
+            <div class="text-center">
+              Menu
+              <i class="glyphicon glyphicon-menu-hamburger pull-right"></i>
+            </div>
+          </span>
+        </div>
+        <div class="list-group margin-b-12" style="display: none;">
+          <span href="#" class="list-group-item menu-head">
+            Menu
+            <span class="pull-right" id="slide-submenu">
+              <i class="glyphicon glyphicon-remove"></i>
+            </span>
+          </span>
+          <div id="side-menu" style="top: 12px;">
+            <ul class="thumbnails list-unstyled">
+              <li ng-repeat="vegetable in vegetables">
+                <a href="#" class="list-group-item">
+                  <i class="fa fa-comment-o"></i>
+                  {{vegetable.name}}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="input-group search-bar margin-b-12">
+          <input type="text" name="search" id="search-bar">
+          <span style="display: inline-block; width: 1%;">
+            <button class="btn btn-blue" type="button">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="panel panel-default margin-b-12" style="padding: 20px;">
+          <div class="panel-heading">
+            <div class="panel-title">
+              <div class="row text-center">
+                <h2>Checkout Process</h2>
+              </div>
+            </div>
+          </div>
+          <div class="panel-body">
+            <form style="width: 256px;float: left;">
+              <div class="control-group">
+                <label>Name:</label>
+                <input type="text" class="large-field" name="name" style="display: block;">
+              </div>
+              <div class="control-group">
+                <label>Company:</label>
+                <input type="text" class="large-field" name="company" style="display: block;">
+              </div>
+              <div class="control-group">
+                <label>Role:</label>
+                <input type="text" class="large-field" name="role" style="display: block;">
+              </div>
+              <div class="control-group">
+                <label style="margin-bottom: 0px;">Location coordinates:</label>
+                <input type="text" id="geoLocation" class="large-field" name="geometry">
+                <span>
+                  <button class="btn btn-blue getLocGeo" type="button">
+                    <i class="glyphicon glyphicon-map-marker"></i>
+                  </button>
+                </span>
+              </div>
+              <div class="control-group">
+                <label style="margin-bottom: 0px;">what3words address:</label>
+                <input type="text" id="w3w" class="large-field" name="w3w">
+                <span>
+                  <input class="w3w-logo" type="image" src="assets/img/w3w.png">
+                </span>
+              </div>
+              <div class="control-group">
+                <label>Location Name:</label>
+                <input type="text" class="large-field" name="locationName" style="display: block;">
+              </div>
+              <div class="control-group">
+                <label>Country:</label>
+                <input type="text" class="large-field" name="country" style="display: block;">
+              </div>
+              <br />
+              <button class="btn btn-blue">Continue</button>
+            </form>
+            <div id="map"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--[if lte IE 8]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="assets/libs/jquery.min.js"><\/script>')</script>
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script>
+    window.jQuery || document.write('<script src="assets/libs/jquery.2.min.js"><\/script>')
+    </script>
+  <!--<![endif]-->
+  <script src="assets/libs/bootstrap.min.js"></script>
+  <script src="./assets/libs/angular.min.js"></script>
+  <script src="./assets/libs/angular-route.min.js"></script>
+  <script src="./assets/libs/angular-ui-router.min.js"></script>
+  <script src="app.js"></script>
+  <script src="assets/js/user.service.js"></script>
+  <script src="assets/js/flash.service.js"></script>
+  <script src="components/login/login.controller.js"></script>
+  <script src="components/register/register.controller.js"></script>
+  <script src="assets/js/authentication.service.js"></script>
+  <script src="components/produce/produce.controller.js"></script>
+  <script src="components/cart/cart.controller.js"></script>
+  <script src="assets/js/sidemenu.js"></script>
+  <script src="assets/js/geolocation.service.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6hIkv32HrtRa7PfjZlzfy_JgoMeQyMWE&callback=initMap">
+  </script>
+  </body>
+</html>

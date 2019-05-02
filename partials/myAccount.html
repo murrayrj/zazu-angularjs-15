@@ -1,0 +1,17 @@
+<div class="panel panel-default margin-b-12 spacing" ng-controller="LoginController">
+  <ul class="nav">
+    <li class="dropdown" style="list-style-type: none;">
+      <div href="#" class="dropdown-toggle text-center" data-toggle="dropdown">
+        My Account
+        <span class="glyphicon glyphicon-chevron-down pull-right"></span>
+      </div>
+      <ul class="dropdown-menu" style="min-width: 255px; left: -16px; top: 29px;">
+        <li><a ng-href="#/settings">Account Settings</a></li>
+        <li class="divider"></li>
+        <li><a ng-href="#/orders">Orders</a></li>
+        <li class="divider"></li>
+        <li><a><span ng-click="logout()">Sign Out</span></a></li>
+      </ul>
+    </li>
+  </ul>
+</div>

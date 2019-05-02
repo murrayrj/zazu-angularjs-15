@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zazu Homepage</title>
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/intlTelInput.css" rel="stylesheet" >
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body ng-app="zazuApp">
+  <div ng-controller="ProduceController">
+    <div class="container">
+      <nav class="navbar">
+        <div class="container-fluid">
+          <div class="navbar-header text-center">
+            <img src="assets/img/logo.png" alt="Zazu logo" height="75" width="225">
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active">
+                <a href="index.html">Home</a>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="register.html">Join Today</a> </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="http://zazuafrica.com">Company</a> </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="col-sm-4 col-md-3 sidebar">
+        <div class="dropdown margin-b-12" ng-controller='CartController'>
+          <div class="dropdown-toggle btn btn-blue text-center spacing" data-toggle="dropdown" href="#">
+            <span>{{ ngCart.getTotalItems() }}
+              <ng-pluralize count="ngCart.getTotalItems()" when="{1: 'item', 'other':'items'}"></ng-pluralize>
+              {{ ngCart.totalCost() | currency }}
+            </span>
+            <i class="glyphicon glyphicon-shopping-cart pull-right"></i>
+          </div>
+          <div class="dropdown-menu well" style="width: 220px;" role="menu" aria-labelledby="dLabel" ng-controller='CartController'>
+            <div ng-repeat="item in items | orderBy:'name'">
+              <p>{{item._name}} x {{item._quantity}} <span class="pull-right">{{item._price}}</span></p>
+            </div>
+            <a href="cart.html" class="btn btn-blue">Go To Cart</a>
+          </div>
+        </div>
+        <div class="panel panel-default margin-b-12 spacing">
+          <ul>
+            <li class="dropdown" style="list-style-type: none;">
+              <div href="#" class="dropdown-toggle text-center" data-toggle="dropdown">
+                <span>My Account</span>
+                <span class="glyphicon glyphicon-chevron-down pull-right"></span>
+              </div>
+              <ul class="dropdown-menu" style="min-width: 255px;">
+                <li><a href="#">Account Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
+                <li class="divider"></li>
+                <li><a href="#">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="mini-submenu">
+          <span class="panel panel-default margin-b-12 spacing menu-head">
+            <div class="text-center">
+              Menu
+              <i class="glyphicon glyphicon-menu-hamburger pull-right"></i>
+            </div>
+          </span>
+        </div>
+        <div class="list-group margin-b-12" style="display: none;">
+          <span href="#" class="list-group-item menu-head">
+            Menu
+            <span class="pull-right" id="slide-submenu">
+              <i class="glyphicon glyphicon-remove"></i>
+            </span>
+          </span>
+          <div id="side-menu" style="top: 12px;">
+            <ul class="thumbnails list-unstyled">
+              <li ng-repeat="vegetable in vegetables">
+                <a href="#" class="list-group-item">
+                  <i class="fa fa-comment-o"></i>
+                  {{vegetable.name}}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="input-group search-bar margin-b-12">
+          <input type="text" name="search" id="search-bar">
+          <span style="display: inline-block; width: 1%;">
+            <button class="btn btn-blue" type="button">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-8">
+          <div class="panel panel-blue" ng-controller='CartController'>
+            <div class="panel-heading">
+              <div class="panel-title">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
+                  </div>
+                  <div class="col-xs-6">
+                  <a ng-href="#/produce">
+                    <button type="button" class="btn btn-blue btn-sm btn-block">
+                      <span class="glyphicon glyphicon-share-alt"></span>Continue shopping
+                    </button>
+                  </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="alert alert-warning" role="alert" ng-show="ngCart.getTotalItems() === 0">
+              Your cart is empty
+            </div>
+            <div class="panel-body" ng-show="ngCart.getTotalItems() > 0">
+              <div class="row">
+                <div class="col-xs-6 col-md-6">
+                  <h5 class="text-right">Price</h5>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                  <h5 class="text-right">Quantity</h5>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                  <h5 class="text-center">Update</h5>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                  <h5 class="text-left">Delete</h5>
+                </div>
+              </div>
+              <div class="row" ng-repeat="item in items track by $index">
+                <div class="col-xs-2 col-md-2"><img class="img-responsive" ng-src="assets/img/{{item._name}}.jpg">
+                </div>
+                <div class="col-xs-3 col-md-3">
+                  <h4 class="product-name"><strong>{{item._name}}</strong></h4>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                  <h5><strong>${{item._price.toFixed(2)}}</strong></h5>
+                </div>
+                <div class="col-xs-1 col-md-1">
+                  <h5><strong>{{item._quantity}}</strong></h5>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                  <span class="glyphicon glyphicon-minus" ng-class="{'disabled':item.getQuantity()==1}"
+                      ng-click="item.setQuantity(-addQty, true); addQty=1;"></span>
+                  <input style="width: 55%" type="text" class="input-sm" placeholder="1" ng-model="addQty">
+                  <span class="glyphicon glyphicon-plus pull-right" ng-click="item.setQuantity(addQty, true); addQty=1;"></span>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                  <button type="button" class="btn btn-link btn-xs">
+                    <span ng-click="ngCart.removeItemById(item.getId())" class="glyphicon glyphicon-trash"> </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <div class="row text-center">
+                <div class="col-xs-9">
+                  <h4 class="text-right">Total <strong>{{ ngCart.totalCost() | currency }}</strong></h4>
+                </div>
+                <div class="col-xs-3">
+                  <a href="checkout.html">
+                    <button type="button" class="btn btn-blue btn-block">
+                      Checkout
+                    </button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--[if lte IE 8]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="assets/libs/jquery.min.js"><\/script>')</script>
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script>
+    window.jQuery || document.write('<script src="assets/libs/jquery.2.min.js"><\/script>')
+    </script>
+  <!--<![endif]-->
+  <script src="assets/libs/bootstrap.min.js"></script>
+  <script src="./assets/libs/angular.min.js"></script>
+  <script src="./assets/libs/angular-route.min.js"></script>
+  <script src="./assets/libs/angular-ui-router.min.js"></script>
+  <script src="app.js"></script>
+  <script src="assets/js/user.service.js"></script>
+  <script src="assets/js/flash.service.js"></script>
+  <script src="components/login/login.controller.js"></script>
+  <script src="components/register/register.controller.js"></script>
+  <script src="assets/js/authentication.service.js"></script>
+  <script src="components/produce/produce.controller.js"></script>
+  <script src="components/cart/cart.controller.js"></script>
+  <script src="assets/js/sidemenu.js"></script>
+  </body>
+</html>

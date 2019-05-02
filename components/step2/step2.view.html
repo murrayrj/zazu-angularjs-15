@@ -1,0 +1,42 @@
+<div class="col-md-offset-4 col-md-4" ng-app="zazuApp" ng-controller="Step2Controller">
+  <div class="panel panel-default margin-b-12" style="padding: 20px; padding-bottom: 0">
+    <h2 class="margin-b-12">Complete Account</h2>
+      <form name="form" role="form" novalidate>
+        <label class="control-label" for="role">Role</label>
+        <div class="form-group" ng-class="{ 'has-error': form.role.$dirty && form.role.$error.required }">
+          <input type="text" name="role" id="role" class="form-control" ng-model="user.role" required autofocus/>
+          <p ng-show="form.role.$dirty && form.role.$error.required" class="help-block">Role is required</p>
+        </div>
+        <label class="control-label" for="w3w">What3Words Address</label>
+        <div class="form-group" ng-class="{ 'has-error': noAddress && form.role.$dirty || form.w3w.$dirty && form.w3w.$error.required }">
+          <input type="text" name="w3w" id="w3w" class="form-control"  ng-model="user.w3w" ng-pattern="/[a-z]+\.[a-z]+\.[a-z]+/"/>
+          <input class="w3w-logo" ng-click="getW3WAddress();" name="w3w" type="image" src="assets/img/w3w.png">
+          <p ng-show="noAddress && form.w3w.$dirty && form.role.$dirty" class="help-block">Click button to find your nearest city</p>
+          <p ng-show="noAddress && form.w3w.$dirty && form.w3w.$invalid" class="help-block">Invalid address</p>
+        </div>
+        <label class="control-label" for="locationName">Location Name</label>
+        <div class="form-group" ng-class="{ 'has-error': form.locationName.$dirty && form.locationName.$error.required }">
+          <input type="text" id="locationName" name="locationName" placeholder="" class="form-control" ng-model="user.locationName" required/>
+          <span class="help-block" ng-show="form.locationName.$dirty && form.locationName.$error.required">Name of location is required</span>
+        </div>
+
+        <label class="control-label" for="country">Country</label>
+        <div class="form-group">
+          <input class="form-control" id="country_selector" type="text" name="country"/>
+        </div>
+        <button type="submit" ng-click="registerStep2User()" class="btn btn-block btn-blue margin-b-12 form-group" ng-disabled="form.$invalid || form.telephone.$pristine">Finish</button>
+      </form>
+      <div class="form-divider-break"></div>
+      <h5 class="text-center">Already have an account?<a href="/#/login" class="btn btn-link">Sign in</a></h5>
+  </div>
+</div>
+<script src="assets/js/geolocation.service.js"></script>
+<script>
+    $("#country_selector").countrySelect({
+      defaultCountry: "zw",
+      preferredCountries: ['mw', 'na','za', 'zm', 'zw']
+    });
+</script>
+<!-- <script src="assets/js/geolocation.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6hIkv32HrtRa7PfjZlzfy_JgoMeQyMWE&callback=initMap">
+</script> -->

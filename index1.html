@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zazu Homepage</title>
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <!-- <div ng-show="attrs.id">
+      <div>
+          <span ng-show="quantityMax">
+              <select name="quantity" id="quantity" ng-model="q"
+                      ng-options=" v for v in qtyOpt"></select>
+          </span>
+          <a class="btn btn-sm btn-primary"
+             ng-click="ngCart.addItem(id, name, price, q, data)"
+             ng-transclude></a>
+      </div>
+      <mark  ng-show="inCart()">
+          This item is in your cart. <a ng-click="ngCart.removeItemById(id)" style="cursor: pointer;">Remove</a>
+      </mark>
+  </div> -->
+</head>
+<body ng-app="zazuApp">
+  <div ng-include src="'partials/navbar.html'"></div>
+  <div ng-controller="ProduceController">
+    <div class="container">
+      <div class="col-sm-4 col-md-3 sidebar">
+        <div ng-include src="'components/cart/cart.view.html'"></div> 
+        <div class="panel panel-default margin-b-12" style="padding: 20px;">
+          <div class="login-form">
+            <h2 class="margin-b-12">Sign in</h2>
+            <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
+            <form class="form" ng-submit="login()" style="margin-left: 8px;">
+              <div class="form-group">
+                <label>Username</label>
+                <input id="Username" class="margin-b-12 form-control" name="Username" type="text" ng-model="loginForm.username" required>
+              </div>
+              <div class="form-group">
+                <label>Password</label>
+                <input id="Password" class="margin-b-12 form-control" name="Password" type="password" ng-model="loginForm.password" required>
+              </div>
+              <div>
+                <button type="submit" class="btn btn-blue" ng-disabled="disabled">Login</button>
+              </div>
+            </form>
+            <br/>
+            <a href="register.html" style="position: relative; left: 8px;">Register</a>
+          </div>
+        </div>
+        <div class="input-group search-bar margin-b-12">
+          <input type="text" name="search" id="search-bar">
+          <span style="display: inline-block; width: 1%;">
+            <button class="btn btn-blue" type="button">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </span>
+        </div>
+        <div class="mini-submenu" style="display: none;">
+          <span class="panel panel-default margin-b-12 spacing menu-head">
+            <div class="text-center">
+              Menu
+              <i class="glyphicon glyphicon-menu-hamburger pull-right"></i>
+            </div>
+          </span>
+        </div>
+        <div class="list-group margin-b-12" style="display: block;">
+          <span href="#" class="list-group-item menu-head">
+            Menu
+            <span class="pull-right" id="slide-submenu">
+              <i class="glyphicon glyphicon-remove"></i>
+            </span>
+          </span>
+          <div id="side-menu" style="top: 12px;">
+            <ul class="thumbnails list-unstyled">
+              <li ng-repeat="vegetable in vegetables">
+                <a href="#" class="list-group-item">
+                  <i class="fa fa-comment-o"></i>
+                  {{vegetable.name}}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div ng-include src="'partials/produce.html'"></div>
+    </div>
+  </div>
+  <!--[if lte IE 8]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="assets/libs/jquery.min.js"><\/script>')</script>
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script>
+    window.jQuery || document.write('<script src="assets/libs/jquery.2.min.js"><\/script>')
+    </script>
+  <!--<![endif]-->
+  <script src="assets/libs/bootstrap.min.js"></script>
+  <script src="./assets/libs/angular.min.js"></script>
+  <script src="./assets/libs/angular-route.min.js"></script>
+  <script src="./assets/libs/angular-ui-router.min.js"></script>
+  <script src="app.js"></script>
+  <script src="assets/js/user.service.js"></script>
+  <script src="assets/js/flash.service.js"></script>
+  <script src="components/login/login.controller.js"></script>
+  <script src="components/register/register.controller.js"></script>
+  <script src="assets/js/authentication.service.js"></script>
+  <script src="./components/search/search.controller.js"></script>
+  <script src="components/produce/produce.controller.js"></script>
+  <script src="components/cart/cart.controller.js"></script>
+  <script src="assets/js/sidemenu.js"></script>
+</body>
+</html>

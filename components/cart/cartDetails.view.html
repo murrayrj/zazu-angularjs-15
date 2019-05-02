@@ -1,0 +1,100 @@
+<div class="col-sm-4 col-md-3 sidebar">
+  <div ui-view="cart"></div>
+  <div ui-view="search"></div>
+  <div class="mini-submenu" style="display: none;">
+    <span class="panel panel-default margin-b-12 spacing menu-head">
+      <div class="text-center">
+        Menu
+        <i class="glyphicon glyphicon-menu-hamburger pull-right"></i>
+      </div>
+    </span>
+  </div>
+  <div class="list-group margin-b-12" style="display: block;" ng-controller="ProduceController">
+    <span href="#" class="list-group-item menu-head">
+      Menu
+      <span class="pull-right" id="slide-submenu">
+        <i class="glyphicon glyphicon-remove"></i>
+      </span>
+    </span>
+    <div id="side-menu" style="top: 12px;">
+      <ul class="thumbnails list-unstyled">
+        <li ng-repeat="vegetable in vegetables">
+          <a href="#" class="list-group-item">
+            <i class="fa fa-comment-o"></i>
+            {{vegetable.name}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="col-sm-8 col-md-9">
+  <div class="panel panel-blue" ng-controller='CartController'>
+    <h2 class="text-center">Shopping Cart</h2>
+    <div class="alert alert-warning" role="alert" ng-show="ngCart.getTotalItems() === 0">
+      Your cart is empty
+    </div>
+    <div class="panel-body" ng-show="ngCart.getTotalItems() > 0">
+      <div class="row">
+        <div class="col-xs-6 col-md-6">
+          <h5 class="text-right">Price</h5>
+        </div>
+        <div class="col-xs-2 col-md-2">
+          <h5 class="text-right">Quantity</h5>
+        </div>
+        <div class="col-xs-2 col-md-2">
+          <h5 class="text-center">Update</h5>
+        </div>
+        <div class="col-xs-2 col-md-2">
+          <h5 class="text-left">Delete</h5>
+        </div>
+      </div>
+      <div class="row" ng-repeat="item in items track by $index">
+        <div class="col-xs-2 col-md-2"><img class="img-responsive" ng-src="assets/img/{{item._name}}.jpg">
+        </div>
+        <div class="col-xs-3 col-md-3">
+          <h4 class="product-name"><strong>{{item._name}}</strong></h4>
+        </div>
+        <div class="col-xs-2 col-md-2">
+          <h5><strong>${{item._price.toFixed(2)}}</strong></h5>
+        </div>
+        <div class="col-xs-1 col-md-1">
+          <h5><strong>{{item._quantity}}</strong></h5>
+        </div>
+        <div class="col-xs-2 col-md-2">
+          <span class="glyphicon glyphicon-minus" ng-class="{'disabled':item.getQuantity()==1}"
+              ng-click="item.setQuantity(-addQty, true); addQty=1;"></span>
+          <input style="width: 55%" type="text" class="input-sm" placeholder="1" ng-model="addQty">
+          <span class="glyphicon glyphicon-plus pull-right" ng-click="item.setQuantity(addQty, true); addQty=1;"></span>
+        </div>
+        <div class="col-xs-2 col-md-2">
+          <button type="button" class="btn btn-link btn-xs">
+            <span ng-click="ngCart.removeItemById(item.getId())" class="glyphicon glyphicon-trash"> </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <div class="row text-center">
+        <div class="col-xs-6">
+          <a ng-href="#/produce">
+            <button type="button" class="btn btn-blue btn-block">
+              Continue shopping
+            </button>
+          </a>
+        </div>
+        <div class="col-xs-3">
+          <h4 class="text-right">Total <strong>{{ ngCart.totalCost() | currency }}</strong></h4>
+        </div>
+        <div class="col-xs-3">
+          <a href="checkout.html">
+            <button type="button" class="btn btn-blue btn-block">
+              Checkout
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="../../assets/js/sidemenu.js"></script>
